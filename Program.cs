@@ -14,6 +14,9 @@ internal class Program
         int opcionDeMenu;
         bool estadoCuenta = true; //false
 
+        List<string> movimientos = new List<string>();
+
+
         do
         {
             ConsolaATM.MostrarMenu(nombreCliente, numeroCuenta);
@@ -47,6 +50,7 @@ internal class Program
                         }
                         else
                         {
+                            ConsolaATM.MostrarEncabezado(nombreCliente, numeroCuenta);
                             montoOperacion = ConsolaATM.LeerMonto("Ingrese el monto a depositar: ");
 
                             if (!OperacionesBancarias.EsMontoValido(montoOperacion))
@@ -58,6 +62,7 @@ internal class Program
                             else
                             {
                                 saldoDisponible = OperacionesBancarias.Depositar(saldoDisponible, montoOperacion);
+                                HistorialMovimientos.RegistrarMovimientos(movimientos, "Depósito", montoOperacion, saldoDisponible);
 
                                 ConsolaATM.MostrarEncabezado(nombreCliente, numeroCuenta);
 
@@ -101,7 +106,7 @@ internal class Program
                             else
                             {
                                 saldoDisponible = OperacionesBancarias.Retirar(saldoDisponible, montoOperacion);
-
+                                HistorialMovimientos.RegistrarMovimientos(movimientos, "Retiro", montoOperacion, saldoDisponible);
                                 ConsolaATM.MostrarEncabezado(nombreCliente, numeroCuenta);
 
                                 Console.WriteLine("RETIRO EXITOSO");
@@ -114,7 +119,8 @@ internal class Program
                         break;
 
                     case 4:
-                        Console.WriteLine("Próximamente...");
+                        ConsolaATM.MostrarEncabezado(nombreCliente, numeroCuenta);
+                        ConsolaATM.MostrarMovimientos(movimientos);
                         ConsolaATM.VolverMenu();
                         break;
 

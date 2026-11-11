@@ -66,4 +66,22 @@ internal static class ConsolaATM
     {
         return int.TryParse(Console.ReadLine(), out opcionDeMenu);
     }
+
+    public static void MostrarMovimientos(List<string> movimientos)
+    {
+        if (movimientos.Count == 0)
+            Console.WriteLine("No existen movimientos registrados");
+        else
+        {
+            // Encabezado
+            Console.WriteLine($"{"Tipo",-10} | {"Monto",8} | {"Saldo",10}");
+            Console.WriteLine(new string('-', 34)); // Línea separadora
+            foreach (string movimiento in movimientos)
+            {
+                Console.WriteLine(movimiento);
+            }
+        }
+    }
+
+
 }
